@@ -1,5 +1,15 @@
-import java.awt.desktop.SystemSleepEvent;
+/*
+当一个数组中大部分元素为同一个值时可以采用稀疏数组来保存该数组，从而缩小程序的规模
+洗漱数组记录原数组 一共 有多少行，有多少个不同的数值
 
+二维数组转稀疏数组的思路
+    1.遍历原始的二维数组，得到有效数据的个数sum
+    2.根据sum就可以创建稀疏数组 sparseArr int[sum＋1]［3］
+    3.将二维数组的有效数据数据存入到稀疏数组
+稀疏数组转原始的二维数组的思路
+    1.先读取稀疏数组的第一行，根据第一行的数据创建原始的二维数组，比如上面的 chessArr2＝int［11］［11］
+    2.在读取稀疏数组后几行的数据，并赋给原始的二维数组即可
+* */
 public class sparsearray {
     public static void main(String[] args) {
         // 创建原始二维数组
@@ -57,7 +67,7 @@ public class sparsearray {
         for(int i=1;i<sparseArray.length;i++){
             chessA2[sparseArray[i][0]][sparseArray[i][1]] =sparseArray[i][2];
         }
-        System.out.println("原始数组为：");
+        System.out.println("恢复成原始数组为：");
         for (int[] row : chessA2) {
             for (int data : row) {
                 System.out.printf("%d\t", data);
