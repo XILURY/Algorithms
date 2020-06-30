@@ -1,3 +1,6 @@
+import java.awt.desktop.SystemSleepEvent;
+import java.util.Stack;
+
 /*
  * 单列表的应用 水浒英雄的插入
  * 1）按照插入顺序
@@ -34,6 +37,20 @@ public class SingleLinkedListDemo {
 
 //        singleLinkedList.del(5);
         singleLinkedList.showList();
+
+//        System.out.println("链表有效个数为：" + singleLinkedList.count());
+//
+//        // 倒数第K个节点为：
+//        System.out.println(singleLinkedList.find(singleLinkedList,3));
+
+        // 翻转链表
+//        System.out.println("翻转之后的链表为：");
+//        singleLinkedList.getReverse();
+//        singleLinkedList.showList();
+
+        // 翻转输出
+        singleLinkedList.reversePrint();
+
 
     }
 
@@ -77,55 +94,54 @@ public class SingleLinkedListDemo {
         }
 
         // 根据编号修改节点信息
-        private void update(HeroNode newHeroNode){
+        private void update(HeroNode newHeroNode) {
             HeroNode temp = head;
             boolean flag = false;
-            if(head.next == null){
+            if (head.next == null) {
                 System.out.println("列表为空，不能修改！");
                 return;  // return 很重要 如果列表为空也就不必执行下面的步骤了
             }
-            while(true){
-                if(temp.next == null){
+            while (true) {
+                if (temp.next == null) {
                     break;
                 }
-                if(temp.next.no == newHeroNode.no){
+                if (temp.next.no == newHeroNode.no) {
                     flag = true;
                     break;
                 }
                 temp = temp.next;
             }
-            if(flag){
+            if (flag) {
                 temp.next.name = newHeroNode.name;
                 temp.next.nickName = newHeroNode.nickName;
-            }else
+            } else
                 System.out.println("没有该节点！");
 
         }
 
         // 删除节点
-        public void del(int no){
+        public void del(int no) {
             HeroNode temp = head;
-            if(head.next == null){
+            if (head.next == null) {
                 System.out.println("链表为空！无法删除");
             }
             boolean flag = false;
-            while (true){
-                if(temp.next == null){
+            while (true) {
+                if (temp.next == null) {
                     break;
                 }
-                if(temp.next.no == no){
+                if (temp.next.no == no) {
                     flag = true;
                     break;
                 }
                 temp = temp.next;
             }
-            if(flag){
+            if (flag) {
                 temp.next = temp.next.next; // 重点理解 删除该节点只要没有节点指向它 就会被垃圾回收
-            }else{
-                System.out.printf("要删除的节点 %d 不存在！",no);
+            } else {
+                System.out.printf("要删除的节点 %d 不存在！\n", no);
             }
         }
-
 
         // 显示整个链表（遍历）
         public void showList() {
@@ -139,7 +155,76 @@ public class SingleLinkedListDemo {
                 System.out.println(temp);
             }
         }
+
+        // 求单链表中有效节点个数
+        public int count() {
+            HeroNode temp = head;
+            int count = 0;
+            if (head.next == null) {
+                // 链表为空
+                return count;
+            }
+            while (temp.next != null) {
+                temp = temp.next;
+                count++;
+            }
+            return count;
+        }
+
+        // 查找列表中倒数第K个节点
+        public HeroNode find(SingleLinkedList singleLinkedList, int k) {
+            HeroNode temp = head;
+            if (k > singleLinkedList.count()) {
+                if (head.next == null)
+                    System.out.println("链表为空！");
+                else
+                    System.out.println("输入的K超过可选范围！");
+            } else {
+                for (int i = 0; i < singleLinkedList.count() - k + 1; i++) {
+                    temp = temp.next;
+                }
+            }
+            return temp;
+        }
+
+        // 翻转链表（有一点难度）
+        public void getReverse() {
+            HeroNode temp = head.next;
+            HeroNode next = null;
+            HeroNode reverseNode = new HeroNode(0, " ", " ");
+            if (head.next == null) {
+                System.out.println("链表为空，不能翻转！");
+            }
+            if (head.next.next == null) { //链表中只有一个节点 直接返回就行
+                System.out.println("只有一个节点不用翻转");
+            }
+            // 遍历原来的链表，每遍历一个节点就取出，将其放在reverseNode的最前端 并且将其下节点指向reverseNode头部
+            while (temp != null) {
+                next = temp.next; // 保存当前节点的下一节点
+                temp.next = reverseNode.next; // 将当前节点的下一节点指向翻转链表的最前端
+                reverseNode.next = temp; // 将当前节点存入翻转链表的最前端
+                temp = next; // 让temp后移
+            }
+            head.next = reverseNode.next; // 实现链表翻转
+        }
+
+        // 从未到头打印链表
+        public void reversePrint(){
+            HeroNode temp = head.next;
+            if(head.next == null){
+                System.out.println("链表为空！");
+            }
+            Stack<HeroNode> stack = new Stack<>();
+            while(temp.next != null){
+                stack.push(temp);
+                temp = temp.next;
+            }
+            while(stack.size()>0){
+                System.out.println(stack.pop());
+            }
+        }
     }
+
 
 
     // 定义HeroNode，每一个HeroNode对象就是一个节点
