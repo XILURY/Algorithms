@@ -18,25 +18,44 @@ public class SingleLinkedListDemo {
         HeroNode hero4 = new HeroNode(4, "公孙胜", "入云龙");
         HeroNode hero5 = new HeroNode(5, "关胜", "大刀");
 
+        HeroNode hero6 = new HeroNode(6, "林冲", "豹子头");
+        HeroNode hero7 = new HeroNode(7, "霹雳火", "秦明");
+        HeroNode hero8 = new HeroNode(8, "双鞭", "呼延灼");
+
         // 创建链表
-        SingleLinkedList singleLinkedList = new SingleLinkedList();
+        SingleLinkedList singleLinkedList1 = new SingleLinkedList();
+        SingleLinkedList singleLinkedList2 = new SingleLinkedList();
+
 //        singleLinkedList.add(hero4);
 //        singleLinkedList.add(hero2);
 //        singleLinkedList.add(hero1);
 //        singleLinkedList.add(hero3);
 //        singleLinkedList.add(hero5);
 
-        singleLinkedList.addBySort(hero5);
-        singleLinkedList.addBySort(hero2);
-        singleLinkedList.addBySort(hero4);
-        singleLinkedList.addBySort(hero3);
-        singleLinkedList.addBySort(hero1);
+        singleLinkedList1.addBySort(hero5);
+        singleLinkedList1.addBySort(hero6);
+        singleLinkedList1.addBySort(hero4);
+        singleLinkedList1.addBySort(hero8);
+        singleLinkedList1.addBySort(hero1);
+
+        singleLinkedList2.addBySort(hero2);
+        singleLinkedList2.addBySort(hero3);
+        singleLinkedList2.addBySort(hero7);
 
 //        HeroNode newHero = new HeroNode(4, "关小胜", "大大刀");
 //        singleLinkedList.update(newHero);
 
 //        singleLinkedList.del(5);
-        singleLinkedList.showList();
+        System.out.println("链表1为：");
+        singleLinkedList1.showList();
+        System.out.println("链表2为：");
+        singleLinkedList2.showList();
+
+        // 合并两个有序链表
+        System.out.println("合并后的链表为：");
+        singleLinkedList1.mergeList(singleLinkedList1, singleLinkedList2);
+        singleLinkedList1.showList();
+
 
 //        System.out.println("链表有效个数为：" + singleLinkedList.count());
 //
@@ -49,8 +68,7 @@ public class SingleLinkedListDemo {
 //        singleLinkedList.showList();
 
         // 翻转输出
-        singleLinkedList.reversePrint();
-
+//        singleLinkedList.reversePrint();
 
     }
 
@@ -209,22 +227,42 @@ public class SingleLinkedListDemo {
         }
 
         // 从未到头打印链表
-        public void reversePrint(){
+        public void reversePrint() {
             HeroNode temp = head.next;
-            if(head.next == null){
+            if (head.next == null) {
                 System.out.println("链表为空！");
             }
             Stack<HeroNode> stack = new Stack<>();
-            while(temp.next != null){
+            while (temp.next != null) {
                 stack.push(temp);
                 temp = temp.next;
             }
-            while(stack.size()>0){
+            while (stack.size() > 0) {
                 System.out.println(stack.pop());
             }
         }
-    }
 
+        // 合并两个有序链表
+        public void mergeList(SingleLinkedList singleLinkedList1, SingleLinkedList singleLinkedList2) {
+            HeroNode temp1 = singleLinkedList1.head;
+            HeroNode temp2 = singleLinkedList1.head;
+            HeroNode temp = null;
+            while (temp2.next != null) {
+                while (temp1.next != null) {
+                    if (temp1.next.next.no > temp2.no) {
+                        temp = temp1.next.next; // 保存当前节点的下一节点
+                        temp1.next = temp2; // 将当前节点的指向链表2的节点
+                        temp2.next = temp;
+                        System.out.println(temp1);
+                    }
+                    temp1 = temp1.next;
+                }
+                temp2 = temp2.next;
+            }
+        }
+
+
+    }
 
 
     // 定义HeroNode，每一个HeroNode对象就是一个节点
@@ -246,7 +284,6 @@ public class SingleLinkedListDemo {
         public String toString() {
             return "HeroNode[no = " + no + ", name=" + name + ", nickname=" + nickName + "]";
         }
-
 
     }
 }
