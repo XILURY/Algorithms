@@ -1,3 +1,4 @@
+package linkedlist;
 /**
  * Josephu问题：
  *设编号为1，2，… n的n个人围坐一圈，约定编号为k（1<=k<=n）的人从1开始报数，
