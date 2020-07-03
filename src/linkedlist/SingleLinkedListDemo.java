@@ -1,8 +1,9 @@
+package linkedlist;
 import java.awt.desktop.SystemSleepEvent;
 import java.util.Stack;
 
 /*
- * 单列表的应用 水浒英雄的插入
+ * 单向列表的应用 水浒英雄的插入
  * 1）按照插入顺序
  * 2）按照排名
  * 3）更新节点
