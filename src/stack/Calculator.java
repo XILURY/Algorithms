@@ -14,12 +14,17 @@ public class Calculator {
 //        System.out.println("请输入运算式：");
 //        Scanner in = new Scanner(System.in);
 //        String suffixExpression = in.next();
-//        String suffixExpression = "(2+4)*5-6";
-        String suffixExpression = "23-(8/2-2)*3";
+        String suffixExpression = "20*2-2+56+2-6*5";
+        String suffixExpression1 = "(3+4)*5-6";
         List<String> list = converse(suffixExpression);
         System.out.println(list);
         System.out.println(suffixExpression + " 的后缀表达式为：" + pro(suffixExpression));
-        System.out.println(suffixExpression + " = " + cal(pro(suffixExpression)));
+        System.out.println(suffixExpression + " = " + cal(pro(suffixExpression)) + "\n");
+
+        List<String> list1 = converse(suffixExpression1);
+        System.out.println(list1);
+        System.out.println(suffixExpression1 + " 的后缀表达式为：" + pro(suffixExpression1));
+        System.out.println(suffixExpression1 + " = " + cal(pro(suffixExpression1)));
     }
 
     //将中缀表达式转换成后缀表达式
@@ -27,6 +32,7 @@ public class Calculator {
         List<String> list = converse(suffixExpression);
         Stack<String> s1 = new Stack<>();
         List<String> s2 = new ArrayList<>();
+
         for (String ele : list) {
             if (ele.matches("\\d+")) { // 如果是数 存入s2
                 s2.add(ele);
@@ -44,7 +50,9 @@ public class Calculator {
                 s1.push(ele);
             }
         }
-        s2.add(s1.pop());  // 注意是全部结束之后再将S1的剩余加入S2 而不是在循环里面
+        while (s1.size() != 0) {
+            s2.add(s1.pop());  // 注意是全部结束之后再将S1的剩余加入S2 而不是在循环里面
+        }
         String str = "";
         for (String item : s2) {
             str = str + item + " ";
