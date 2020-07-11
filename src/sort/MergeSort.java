@@ -7,7 +7,7 @@ import java.util.Arrays;
  */
 public class MergeSort {
     public static void main(String[] args) {
-        int num[] = { 8, 4, 5, 7, 1, 3, 6, 2 };
+        int num[] = {8, 4, 5, 7, 1, 3, 6, 2};
         int[] temp = new int[num.length];
         mergeSort(num, 0, num.length - 1, temp);
         System.out.println(Arrays.toString(num));
@@ -24,6 +24,7 @@ public class MergeSort {
             merge(num, left, mid, right, temp);
         }
     }
+
     // 治 && 合并数组
     public static void merge(int[] num, int left, int mid, int right, int[] temp) {
         int i = left; // 初始化i，左边有序序列的初始索引；
