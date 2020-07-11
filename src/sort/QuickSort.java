@@ -33,9 +33,11 @@ public class QuickSort {
                 i++;
             }
             //开始交换
-            t = arr[j];
-            arr[j] = arr[i];
-            arr[i] = t;
+            if (i < j) { // i和j有可能相等 当相等时，其就是一个数，不用进行交换操作
+                t = arr[j];
+                arr[j] = arr[i];
+                arr[i] = t;
+            }
         }
         //最后将基准为与i和j相等位置的数字交换（循环完成后 i = j）
         arr[low] = arr[i];
