@@ -7,7 +7,7 @@ import java.util.Arrays;
  */
 public class SelectionSort {
     public static void main(String[] arg) {
-        int[] num = new int[]{9, 8, 7, 6, i5, 4, 3, 2, 1, 0};
+        int[] num = new int[]{9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
         System.out.println(Arrays.toString(selectionSort(num)));
 //        int[] num = new int[80000];
 //        for (int i = 0; i < 80000; i++) {
