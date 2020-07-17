@@ -52,8 +52,8 @@ public class BinarySortTree {
         // 找右子树中最小的节点,并删除（为删除节点准备）
         public int delRightTreeMin(Node node) {
             Node target = node;
-            while (target.left != null){ // 最小节点一定在该节点的左子树里面
-                 target = target.left;
+            while (target.left != null) { // 最小节点一定在该节点的左子树里面
+                target = target.left;
             }
 
             del(target.value);
@@ -91,21 +91,25 @@ public class BinarySortTree {
 
 
                 } else { // 要删除的节点只有一个子节点
-                    if(targetNode.left != null) { // 要删除的节点有左子节点
-                        if(parent != null){ // 排除要删除的是根节点
-                            if(parent.left.value == value){
+                    if (targetNode.left != null) { // 要删除的节点有左子节点
+                        if (parent != null) { // 排除要删除的是根节点
+                            if (parent.left.value == value) {
                                 parent.left = targetNode.left;
-                            }else {
+                            } else {
                                 parent.right = targetNode.left;
                             }
+                        } else { // 如果要删除的是根节点
+                            root = targetNode.left;
                         }
-                    }else { // 要删除的节点有右子节点
-                        if(parent != null){ // 排除要删除的是根节点
-                            if(parent.left.value == value){
+                    } else { // 要删除的节点有右子节点
+                        if (parent != null) { // 排除要删除的是根节点
+                            if (parent.left.value == value) {
                                 parent.left = targetNode.right;
-                            }else {
+                            } else {
                                 parent.right = targetNode.right;
                             }
+                        } else {
+                            root = targetNode.right;
                         }
                     }
                 }
